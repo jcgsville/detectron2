@@ -601,8 +601,12 @@ Alternatively, you can call evaluation functions yourself (see Colab balloon tut
                 len(cfg.DATASETS.TEST), len(evaluators)
             )
 
+        test_datasets_names = cfg.DATASETS.TEST
+        if isinstance(test_datasets_names, str):
+            test_datasets_names = [test_datasets_names]
+
         results = OrderedDict()
-        for idx, dataset_name in enumerate(cfg.DATASETS.TEST):
+        for idx, dataset_name in enumerate(test_datasets_names):
             data_loader = cls.build_test_loader(cfg, dataset_name)
             # When evaluators are passed in as arguments,
             # implicitly assume that evaluators can be created before data_loader.
